@@ -6,4 +6,8 @@
     <string name="favourite">Favourite</string>
     <string name="category">Category</string>
     <string name="categoriesfrag">CategoriesFrag</string>
+    <string name="homee">Home</string>
+    <string name="what_would_you_like_to_eat">What would you like to eat</string>
+    <string name="over_popular_items">Over Popular Items</string>
+    <string name="categoryy">Category</string>
 </resources>
