@@ -1,9 +1,10 @@
-package com.example.recify
+package com.example.recify.actvity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.example.recify.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         //Setup of bottomNav with the Fragments
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.btmNav)
-        val navController = Navigation.findNavController(this,R.id.hostFragment)
+        val navController = Navigation.findNavController(this, R.id.hostFragment)
          NavigationUI.setupWithNavController(bottomNavigation,navController)
 
     }
