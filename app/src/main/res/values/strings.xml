@@ -10,4 +10,7 @@
     <string name="what_would_you_like_to_eat">What would you like to eat</string>
     <string name="over_popular_items">Over Popular Items</string>
     <string name="categoryy">Category</string>
+    <string name="category_beef">Category : Beef</string>
+    <string name="instruction">Instruction</string>
+    <string name="area_india">Area : India</string>
 </resources>
