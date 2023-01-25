@@ -36,6 +36,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/fav"
@@ -71,6 +72,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category_beef"
@@ -78,8 +80,10 @@
                 android:textColor="@color/gBlack"
                 app:drawableLeftCompat="@drawable/category"
                 app:drawableTint="@color/gBlack"
-                android:layout_weight="1"/>
+                    android:layout_marginEnd="@dimen/_15sdp"
+                />
                 <TextView
+                    android:id="@+id/tvArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/area_india"
@@ -87,7 +91,7 @@
                     android:textColor="@color/gBlack"
                     app:drawableLeftCompat="@drawable/ic_baseline_location_on_24"
                     app:drawableTint="@color/gBlack"
-                    android:layout_weight="1"/>
+                    />
             </LinearLayout>
 
             <TextView
@@ -105,13 +109,17 @@
                 android:textSize="@dimen/_15ssp"
                 />
             <TextView
-                android:id="@+id/tvDetail"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvInstructionDetail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/tvInstruction"
                 app:layout_constraintTop_toBottomOf="@id/tvInstruction"
                 android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:textColor="@color/black"
+                app:layout_constraintWidth_percent="0.6"
 
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
