@@ -1,6 +1,6 @@
 package com.example.recify.classes
 
-data class MealX(
+data class CategoryMeals(
     val idMeal: String,
     val strMeal: String,
     val strMealThumb: String

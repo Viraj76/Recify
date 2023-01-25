@@ -26,6 +26,7 @@ class MealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         mealMvvm = ViewModelProvider(this)[MealViewModel::class.java]
         getMealInformationFromIntent()
         setInformationInViews()
@@ -41,7 +42,6 @@ class MealActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
             startActivity(intent)
         }
-
     }
 
     private fun observerMealDetailsLiveData() {

@@ -1,5 +1,5 @@
 package com.example.recify.classes
 
 data class CategoryList(
-    val meals: List<MealX>
+    val meals: List<CategoryMeals>
 )
