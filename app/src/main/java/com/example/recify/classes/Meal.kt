@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Meal(
     val dateModified: Any?,
     @PrimaryKey
-    val idMeal: String?,
+    val idMeal: String,
     val strArea: String?,
     val strCategory: String?,
     val strCreativeCommonsConfirmed: Any?,

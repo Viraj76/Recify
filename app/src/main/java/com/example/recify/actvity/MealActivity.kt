@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -12,7 +13,9 @@ import com.example.recify.Fragments.HomeFragment
 import com.example.recify.R
 import com.example.recify.classes.Meal
 import com.example.recify.databinding.ActivityMealBinding
+import com.example.recify.db.MealDataBase
 import com.example.recify.viewModel.MealViewModel
+import com.example.recify.viewModel.MealViewModelFactory
 
 class MealActivity : AppCompatActivity() {
     lateinit var binding: ActivityMealBinding
@@ -26,8 +29,10 @@ class MealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val mealDataBase = MealDataBase.getInstance(this)
+        val viewModelFactory = MealViewModelFactory(mealDataBase)
 
-        mealMvvm = ViewModelProvider(this)[MealViewModel::class.java]
+        mealMvvm = ViewModelProvider(this,viewModelFactory)[MealViewModel::class.java]
         getMealInformationFromIntent()
         setInformationInViews()
         loadingCase()
@@ -35,6 +40,16 @@ class MealActivity : AppCompatActivity() {
         observerMealDetailsLiveData()
 
         onYtbeImageClicked()
+        onFavClick()
+    }
+
+    private fun onFavClick() {
+        binding.fabFav.setOnClickListener {
+            saveMeal?.let {
+                mealMvvm.insertMeal(it)
+                Toast.makeText(this,"Meal Saved",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun onYtbeImageClicked() {
@@ -44,6 +59,7 @@ class MealActivity : AppCompatActivity() {
         }
     }
 
+    var saveMeal: Meal?=null
     private fun observerMealDetailsLiveData() {
         mealMvvm.observeMealDetailsLiveData().observe(this,object : Observer<Meal>{
             override fun onChanged(t: Meal?) {
@@ -51,8 +67,8 @@ class MealActivity : AppCompatActivity() {
                 binding.tvCategory.text = "Category : ${t!!.strCategory}"
                 binding.tvArea.text = "Area : ${t.strArea}"
                 binding.tvInstructionDetail.text = t.strInstructions
-
-                youtubeLink = t.strYoutube
+                saveMeal = t
+                youtubeLink = t.strYoutube.toString()
             }
         })
     }

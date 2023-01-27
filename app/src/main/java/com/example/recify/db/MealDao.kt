@@ -24,7 +24,7 @@ interface MealDao {
     suspend fun delete(meal:Meal)
 
     @Query("SELECT * FROM mealInfo")
-    fun getAllMeals() : LiveData<List<MealList>>
+    fun getAllMeals() : LiveData<List<Meal>>
 
 
 }
