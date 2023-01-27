@@ -3,17 +3,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.recify.classes.CategoryMeals
-import com.example.recify.classes.MealList
-import com.example.recify.databinding.ActivityMealBinding
+import com.example.recify.classes.MealsByCategory
 import com.example.recify.databinding.PopularItemsBinding
 
 
 class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealViewHolder>() {
-    private var mealList = ArrayList<CategoryMeals>()
-    lateinit var onItemClick : ((CategoryMeals) -> Unit)
+    private var mealList = ArrayList<MealsByCategory>()
+    lateinit var onItemClick : ((MealsByCategory) -> Unit)
 
-    fun setMeals(mealList: ArrayList<CategoryMeals>){
+    fun setMeals(mealList: ArrayList<MealsByCategory>){
         this.mealList = mealList
         notifyDataSetChanged()
     }
