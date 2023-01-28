@@ -1,12 +1,10 @@
 package com.example.recify.Fragments
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recify.classes.Meal
@@ -14,6 +12,7 @@ import com.example.recify.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
 import com.example.recify.Adapter.CategoriesAdapter
 import com.example.recify.Adapter.MostPopularAdapter
+import com.example.recify.actvity.MainActivity
 
 import com.example.recify.actvity.MealActivity
 import com.example.recify.classes.MealsByCategory
@@ -21,7 +20,7 @@ import com.example.recify.viewModel.HomeViewModel
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
-    private lateinit var homeMvvm :HomeViewModel
+    private lateinit var viewModel :HomeViewModel
     lateinit var randomMeal: Meal
     lateinit var popularItemsAdapter : MostPopularAdapter
     lateinit var categoriesAdapter: CategoriesAdapter
@@ -33,7 +32,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
+//        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java] // we are removing it from here to MainActivity becz we dont want to initialize 3 instance for the
+        // for the viewModel instead we will initialize it into the main act. and then we will use it for all the frags
+        viewModel = (activity as MainActivity).viewModel
         popularItemsAdapter = MostPopularAdapter()
         categoriesAdapter = CategoriesAdapter()
     }
@@ -49,16 +50,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preparePopularItemRecyclerView()
-        homeMvvm.randomMeal()
+        viewModel.randomMeal()
         observeRandomMeal()
         onRandomMealClick()
 
-        homeMvvm.getPopularItems()
+        viewModel.getPopularItems()
         observePopularItemsLiveData()
         onPopularItemClick()
 
         prepareCategoriesRecyclerView()
-        homeMvvm.getCategories()
+        viewModel.getCategories()
         observeGetCategoriesLiveData()
 
 
@@ -73,7 +74,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeGetCategoriesLiveData() {
-        homeMvvm.observeGetCategoriesLiveData().observe(viewLifecycleOwner){ categories ->
+        viewModel.observeGetCategoriesLiveData().observe(viewLifecycleOwner){ categories ->
 
                 categoriesAdapter.setCategoryList(categories)
 
@@ -98,7 +99,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularItemsLiveData() {
-        homeMvvm.observePopularItemLiveData().observe(viewLifecycleOwner){ mealList->
+        viewModel.observePopularItemLiveData().observe(viewLifecycleOwner){ mealList->
             popularItemsAdapter.setMeals(mealList as ArrayList<MealsByCategory>)
         }
     }
@@ -113,7 +114,7 @@ class HomeFragment : Fragment() {
         }
     }
     private fun observeRandomMeal() {
-       homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner){ meal->
+       viewModel.observeRandomMealLiveData().observe(viewLifecycleOwner){ meal->
            if (meal != null) {
                Glide.with(this@HomeFragment)
                    .load(meal.strMealThumb)

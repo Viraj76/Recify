@@ -6,14 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recify.Retrofit.RetrofitInstance
 import com.example.recify.classes.*
+import com.example.recify.db.MealDataBase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(): ViewModel() {
+class HomeViewModel(
+    private val mealDataBase: MealDataBase  //Here we will take the data from our modelViewFactory
+): ViewModel(
+
+) {
     private var randomMealLiveData = MutableLiveData<Meal>()
     private var popularItemLiveData = MutableLiveData<List<MealsByCategory>>()
     private var cateGoriesLiveData = MutableLiveData<List<Category>>()
+    private var favouriteMealsLiveData = mealDataBase.mealDao().getAllMeals()
     fun randomMeal(){
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
@@ -69,5 +75,8 @@ class HomeViewModel(): ViewModel() {
     }
     fun observeGetCategoriesLiveData():LiveData<List<Category>>{
         return cateGoriesLiveData
+    }
+    fun observeFavouriteMealsLiveData() : LiveData<List<Meal>>{
+        return favouriteMealsLiveData
     }
 }
