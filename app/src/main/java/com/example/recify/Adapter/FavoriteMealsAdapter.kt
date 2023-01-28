@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.recify.classes.Meal
 import com.example.recify.databinding.CategoryItemBinding
+import com.example.recify.databinding.FavItemViewBinding
 import com.example.recify.databinding.FragmentFavrouiteBinding
 class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealViewHolder>(){
 
@@ -16,7 +17,7 @@ class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMe
     //if we delete a item (notify data) then it refresh all the items
     //but when we use the diffUtils then it only refresh the item that got changed not the others
 
-    inner class FavoriteMealViewHolder( val binding: CategoryItemBinding):ViewHolder(binding.root)
+    inner class FavoriteMealViewHolder( val binding: FavItemViewBinding):ViewHolder(binding.root)
 
 
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>(){
@@ -33,7 +34,7 @@ class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMe
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMealViewHolder {
         return FavoriteMealViewHolder(
-            CategoryItemBinding.inflate(
+            FavItemViewBinding.inflate(
                 LayoutInflater.from(parent.context),parent,false
             )
         )
@@ -43,8 +44,8 @@ class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMe
         val meal = differ.currentList[position]
         Glide.with(holder.itemView)
             .load(meal.strMealThumb)
-            .into(holder.binding.ivCategory)
-        holder.binding.tvCatName.text = meal.strMeal
+            .into(holder.binding.ivFavorite)
+        holder.binding.tvFavItemTitle.text = meal.strMeal
 
     }
 
