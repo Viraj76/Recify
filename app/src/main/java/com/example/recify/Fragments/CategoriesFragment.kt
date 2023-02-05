@@ -43,7 +43,6 @@ class CategoriesFragment : Fragment() {
             categoriesAdapter.setCategoryList(categories)
         }
     }
-
     private fun prepareRecyclerView() {
        categoriesAdapter = CategoriesAdapter()
         binding.rvViewCategories.apply {
