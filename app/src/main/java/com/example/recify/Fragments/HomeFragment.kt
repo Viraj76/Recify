@@ -12,6 +12,7 @@ import com.example.recify.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
 import com.example.recify.Adapter.CategoriesAdapter
 import com.example.recify.Adapter.MostPopularAdapter
+import com.example.recify.Fragments.bottomsheet.MealBottomSheetFragment
 import com.example.recify.actvity.MainActivity
 
 import com.example.recify.actvity.MealActivity
@@ -62,7 +63,15 @@ class HomeFragment : Fragment() {
         viewModel.getCategories()
         observeGetCategoriesLiveData()
 
+        onPopularItemLongClick()
 
+    }
+
+    private fun onPopularItemLongClick() {
+        popularItemsAdapter.onLongItemClick = {meal ->
+            val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(meal.idMeal)
+            mealBottomSheetFragment.show(childFragmentManager,"Meal Info")
+        }
     }
 
     private fun prepareCategoriesRecyclerView() {

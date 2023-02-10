@@ -10,6 +10,7 @@ import com.example.recify.databinding.PopularItemsBinding
 class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealViewHolder>() {
     private var mealList = ArrayList<MealsByCategory>()
     lateinit var onItemClick : ((MealsByCategory) -> Unit)
+    var onLongItemClick:((MealsByCategory)-> Unit)?= null
 
     fun setMeals(mealList: ArrayList<MealsByCategory>){
         this.mealList = mealList
@@ -29,6 +30,11 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
 
         holder.itemView.setOnClickListener {
             onItemClick.invoke(mealList[position])
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onLongItemClick?.invoke(mealList[position])
+            true
         }
     }
 
