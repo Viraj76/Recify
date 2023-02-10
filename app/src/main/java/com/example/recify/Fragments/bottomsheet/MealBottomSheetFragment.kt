@@ -5,23 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.recify.R
-
+import com.example.recify.actvity.MainActivity
+import com.example.recify.databinding.FragmentMealBottomSheetBinding
+import com.example.recify.viewModel.HomeViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 private const val MEAL_ID = "param1"
 
 
-
-class MealBottomSheetFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+class MealBottomSheetFragment : BottomSheetDialogFragment() {
     private var mealId: String? = null
+    private lateinit var binding : FragmentMealBottomSheetBinding
+    private lateinit var viewModel : HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             mealId = it.getString(MEAL_ID)
-
         }
+        viewModel = (activity as MainActivity).viewModel
     }
 
 
@@ -29,14 +33,30 @@ class MealBottomSheetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meal_bottom_sheet, container, false)
+        binding = FragmentMealBottomSheetBinding.inflate(inflater)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mealId?.let{
+            viewModel.getMealById(it)
+        }
+        observeBottomSheetMeal()
+    }
+    private fun observeBottomSheetMeal(){
+        viewModel.observeBottomSheetMeal().observe(viewLifecycleOwner){meal ->
+            Glide.with(this)
+                .load(meal.strMealThumb)
+                .into(binding.ivBottomSheet)
+            binding.bsLocation.text = meal.strArea
+            binding.bsMealCategory.text = meal.strCategory
+            binding.tvMealName.text = meal.strMeal
+        }
+    }
     companion object {
-
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String) =
             MealBottomSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(MEAL_ID, param1)
