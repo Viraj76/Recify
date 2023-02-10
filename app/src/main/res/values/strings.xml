@@ -13,4 +13,8 @@
     <string name="category_beef">Category : Beef</string>
     <string name="instruction">Instruction</string>
     <string name="area_india">Area : India</string>
+    <string name="british">British</string>
+    <string name="beef">Beef</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="read_more">Read more...</string>
 </resources>
