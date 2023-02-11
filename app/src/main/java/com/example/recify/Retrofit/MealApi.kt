@@ -10,10 +10,10 @@ interface MealApi {
     @GET("random.php")
     fun getRandomMeal():Call<MealList>
 
-    @GET("lookup.php?")
+    @GET("lookup.php") //here ? is not required because we have only one query so remove it
     fun getMealDetail(@Query("i") id :String):Call<MealList>
 //
-    @GET("filter.php?")
+    @GET("filter.php")
     fun getPopularItems(@Query("c") categoryName:String): Call<MealsByCategoryList>
 
     @GET("categories.php")
