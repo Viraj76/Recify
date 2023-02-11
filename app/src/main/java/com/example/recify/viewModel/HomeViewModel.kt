@@ -23,12 +23,30 @@ class HomeViewModel(
     private var cateGoriesLiveData = MutableLiveData<List<Category>>()
     private var favouriteMealsLiveData = mealDataBase.mealDao().getAllMeals()
     private var bottomSheetMealLiveData = MutableLiveData<Meal>()
-    fun randomMeal(){
+
+    /*
+    init {
+        randomMeal()   //even the activity recreated we have same data as we had ( we did this to keep same data on screen after rotating the screen)
+
+        // but this not a good way to do that instead we have different approach to do that
+
+    }
+*/
+
+    private var saveSateRandomMeal:Meal?=null
+
+
+     fun randomMeal(){
+         saveSateRandomMeal?.let { randomMeal->
+             randomMealLiveData.postValue(randomMeal)
+             return
+         }
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if(response.body() != null){
                     val randomMeal : Meal = response.body()!!.meals[0]
                     randomMealLiveData.value = randomMeal
+                    saveSateRandomMeal = randomMeal
                 }
                 else{
                     return
@@ -55,7 +73,6 @@ class HomeViewModel(
 
         })
     }
-
     fun getCategories(){
         RetrofitInstance.api.getCategories().enqueue(object : Callback<CategoryList>{
             override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
@@ -85,7 +102,6 @@ class HomeViewModel(
 
         })
     }
-
     fun deleteMeal(meal: Meal){
         viewModelScope.launch {
             mealDataBase.mealDao().delete(meal)
@@ -96,6 +112,8 @@ class HomeViewModel(
             mealDataBase.mealDao().upsert(meal)
         }
     }
+
+
 
     fun observeRandomMealLiveData():LiveData<Meal>{
         return randomMealLiveData
