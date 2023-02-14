@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recify.classes.Meal
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.recify.Adapter.CategoriesAdapter
 import com.example.recify.Adapter.MostPopularAdapter
 import com.example.recify.Fragments.bottomsheet.MealBottomSheetFragment
+import com.example.recify.R
 import com.example.recify.actvity.MainActivity
 
 import com.example.recify.actvity.MealActivity
@@ -59,12 +61,21 @@ class HomeFragment : Fragment() {
         observePopularItemsLiveData()
         onPopularItemClick()
 
-        prepareCategoriesRecyclerView()
+//        prepareCategoriesRecyclerView()
         viewModel.getCategories()
         observeGetCategoriesLiveData()
 
         onPopularItemLongClick()
 
+        onSearchIconClick()
+
+
+    }
+
+    private fun onSearchIconClick() {
+        binding.ivSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
     }
 
     private fun onPopularItemLongClick() {
@@ -74,13 +85,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun prepareCategoriesRecyclerView() {
-
-        binding.rvViewCategories.apply {
-            layoutManager = GridLayoutManager(context,3,GridLayoutManager.VERTICAL,false)
-            adapter = categoriesAdapter
-        }
-    }
+//    private fun prepareCategoriesRecyclerView() {
+//
+//        binding.rvViewCategories.apply {
+//            layoutManager = GridLayoutManager(context,3,GridLayoutManager.VERTICAL,false)
+//            adapter = categoriesAdapter
+//        }
+//    }
 
     private fun observeGetCategoriesLiveData() {
         viewModel.observeGetCategoriesLiveData().observe(viewLifecycleOwner){ categories ->
@@ -102,7 +113,7 @@ class HomeFragment : Fragment() {
 
     private fun preparePopularItemRecyclerView() {
        binding.rvPopularMeals.apply {
-           layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+           layoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
            adapter = popularItemsAdapter
        }
     }
