@@ -18,4 +18,6 @@
     <string name="meal_name">Meal Name</string>
     <string name="read_more">Read more...</string>
     <string name="search_meals">Search Meals..</string>
+    <string name="categories">Categories</string>
+    <string name="favouritew">Favourites</string>
 </resources>

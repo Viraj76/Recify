@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.recify.classes.Meal
-import com.example.recify.databinding.CategoryItemBinding
 import com.example.recify.databinding.FavItemViewBinding
-import com.example.recify.databinding.FragmentFavrouiteBinding
-class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealViewHolder>(){
+
+class MealsAdapter: RecyclerView.Adapter<MealsAdapter.FavoriteMealViewHolder>(){
 
     // we will use diffUtils to enhance the RV
     //if we delete a item (notify data) then it refresh all the items
