@@ -1,6 +1,7 @@
 package com.example.recify.viewModel
 
 import android.util.Log
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class HomeViewModel(
     private val mealDataBase: MealDataBase  //Here we will take the data from our modelViewFactory
@@ -112,6 +114,7 @@ class HomeViewModel(
                 }
             }
             override fun onFailure(call: Call<MealList>, t: Throwable) {
+                var tv: TextView
                 Log.e("HomeViewModel",t.message.toString())
             }
 
@@ -147,3 +150,8 @@ class HomeViewModel(
     }
     fun observeBottomSheetMeal(): LiveData<Meal> = bottomSheetMealLiveData
 }
+
+
+
+
+
