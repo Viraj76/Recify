@@ -20,19 +20,20 @@ import kotlinx.coroutines.launch
 
 
 class SearchFragment : Fragment() {
-
     private lateinit var binding : FragmentSearchBinding
     private lateinit var viewModel : HomeViewModel
     private  lateinit var searchRecylerViewAdapter:MealsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(inflater)
 
         return binding.root
@@ -41,7 +42,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.etSearchBox.requestFocus()
         prepareRecyclerView()
 
         binding.ivArrow.setOnClickListener { searchMeals() }
@@ -68,7 +69,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchMeals() {
-        val searchQuery = binding.etSearchBox.text.toString()
+        val searchQuery = binding.etSearchBox.text.toString()  //i forgot to write text after the id
         if(searchQuery.isNotEmpty()){
             viewModel.searchMeals(searchQuery)
         }

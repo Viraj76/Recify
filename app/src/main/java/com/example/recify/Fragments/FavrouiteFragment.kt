@@ -23,6 +23,7 @@ class FavrouiteFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -4,7 +4,7 @@
     android:layout_height="@dimen/_120sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/_10sdp"
-    android:elevation="@dimen/_3sdp"
+    android:elevation="@dimen/_5sdp"
     app:cardUseCompatPadding="true"
     >
     <ImageView

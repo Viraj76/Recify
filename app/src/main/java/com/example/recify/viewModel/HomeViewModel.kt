@@ -17,16 +17,13 @@ import retrofit2.Response
 
 class HomeViewModel(
     private val mealDataBase: MealDataBase  //Here we will take the data from our modelViewFactory
-): ViewModel(
-
-) {
+): ViewModel() {
     private var randomMealLiveData = MutableLiveData<Meal>()
     private var popularItemLiveData = MutableLiveData<List<MealsByCategory>>()
-    private var cateGoriesLiveData = MutableLiveData<List<Category>>()
+    private var categoriesLiveData = MutableLiveData<List<Category>>()
     private var favouriteMealsLiveData = mealDataBase.mealDao().getAllMeals()
     private var bottomSheetMealLiveData = MutableLiveData<Meal>()
     private var searchedMealLiveData = MutableLiveData<List<Meal>>()
-
     /*
     init {
         randomMeal()   //even the activity recreated we have same data as we had ( we did this to keep same data on screen after rotating the screen)
@@ -35,7 +32,6 @@ class HomeViewModel(
 
     }
 */
-
     private var saveSateRandomMeal:Meal?=null
 
 
@@ -80,7 +76,7 @@ class HomeViewModel(
         RetrofitInstance.api.getCategories().enqueue(object : Callback<CategoryList>{
             override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
                response.body()?.let { categoryList ->
-                   cateGoriesLiveData.postValue(categoryList.categories)
+                   categoriesLiveData.postValue(categoryList.categories)
                }
             }
 
@@ -117,7 +113,6 @@ class HomeViewModel(
                 var tv: TextView
                 Log.e("HomeViewModel",t.message.toString())
             }
-
         })
     }
     fun deleteMeal(meal: Meal){
@@ -143,7 +138,7 @@ class HomeViewModel(
         return popularItemLiveData
     }
     fun observeGetCategoriesLiveData():LiveData<List<Category>>{
-        return cateGoriesLiveData
+        return categoriesLiveData
     }
     fun observeFavouriteMealsLiveData() : LiveData<List<Meal>>{
         return favouriteMealsLiveData

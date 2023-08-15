@@ -1,7 +1,7 @@
 package com.example.recify.Fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.fragmetn
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

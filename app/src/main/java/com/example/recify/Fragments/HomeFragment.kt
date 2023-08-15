@@ -53,6 +53,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preparePopularItemRecyclerView()
+
         viewModel.randomMeal()
         observeRandomMeal()
         onRandomMealClick()
@@ -95,7 +96,6 @@ class HomeFragment : Fragment() {
 
     private fun observeGetCategoriesLiveData() {
         viewModel.observeGetCategoriesLiveData().observe(viewLifecycleOwner){ categories ->
-
                 categoriesAdapter.setCategoryList(categories)
 
         }
