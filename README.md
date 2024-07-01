@@ -5,9 +5,6 @@
 - Retrofit
 
 # Screen Shots
-## Screenshots
-
-## Screenshots
 
 <table>
   <tr>
